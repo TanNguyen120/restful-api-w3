@@ -15,6 +15,7 @@ const customerRouter = require('./routes/customer');
 const filmRouter = require('./routes/film');
 const filmActorRouter = require('./routes/filmActor');
 const filmCategoryRouter = require('./routes/fimCategory');
+const filmTextRouter = require('./routes/filmText');
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use('/customer', customerRouter);
 app.use('/film', filmRouter);
 app.use('/filmActor', filmActorRouter);
 app.use('/filmCategory', filmCategoryRouter);
+app.use('/filmText', filmTextRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
