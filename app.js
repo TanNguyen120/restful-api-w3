@@ -9,7 +9,12 @@ const usersRouter = require('./routes/users');
 const categoryRouter = require('./routes/category');
 const actorRouter = require('./routes/actor');
 const addressRouter = require('./routes/address');
-const cityRouter = require('./routes/city')
+const cityRouter = require('./routes/city');
+const countryRouter = require('./routes/country');
+const customerRouter = require('./routes/customer');
+const filmRouter = require('./routes/film');
+const filmActorRouter = require('./routes/filmActor');
+const filmCategoryRouter = require('./routes/fimCategory');
 
 const app = express();
 
@@ -29,6 +34,11 @@ app.use('/category', categoryRouter);
 app.use('/actor', actorRouter);
 app.use('/address', addressRouter);
 app.use('/city', cityRouter);
+app.use('/country', countryRouter);
+app.use('/customer', customerRouter);
+app.use('/film', filmRouter);
+app.use('/filmActor', filmActorRouter);
+app.use('/filmCategory', filmCategoryRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
