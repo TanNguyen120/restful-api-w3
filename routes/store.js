@@ -4,8 +4,8 @@ const knex = require("../model/knex");
 /* GET home page. */
 router.get('/', async (req, res, next) => {
     try {
-        const staffs = await knex.knexObj('staff')
-        res.status(200).json(staffs)
+        const stores = await knex.knexObj('store')
+        res.status(200).json(stores)
 
     } catch (err) {
         res.status(500).send('some thing went wrong')
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async function (req, res, next) {
     try {
         const id = !isNaN(parseInt(req.params.id)) ? req.params.id : 1;
-        const result = await knex.knexObj('staff').where('staff_id', id);
+        const result = await knex.knexObj('store').where('store_id', id);
         res.status(200).json(result)
 
     } catch (err) {
@@ -33,18 +33,13 @@ router.get('/:id', async function (req, res, next) {
 router.put('/:id', async function (req, res, next) {
     try {
         const id = !isNaN(parseInt(req.params.id)) ? req.params.id : 1;
-        const newfirstName = req.body.firstName;
-        const newLastName = req.body.lastName;
-        const addressId = req.body.addressId;
-        const storeId = req.body.storeId;
-        const userName = req.body.userName;
-        const result = await knex.knexObj('staff').where('staff_id', id).update(
+        const manager_staff_id = req.body.manager_staff_id;
+        const address_id = req.body.address_id;
+
+        const result = await knex.knexObj('store').where('store_id', id).update(
             {
-                first_name: newfirstName,
-                last_name: newLastName,
-                address_id: addressId,
-                username: userName,
-                store_id: storeId
+                manager_staff_id: manager_staff_id,
+                address_id: address_id
             });
         res.status(201).send('update succeed' + result);
 
@@ -57,17 +52,11 @@ router.put('/:id', async function (req, res, next) {
 //**************************************************************************************** */
 router.post('/', async function (req, res, next) {
     try {
-        const newfirstName = req.body.firstName;
-        const newLastName = req.body.lastName;
-        const addressId = req.body.addressId;
-        const storeId = req.body.storeId;
-        const userName = req.body.userName;
-        const allCategories = await knex.knexObj('staff').insert({
-            first_name: newfirstName,
-            last_name: newLastName,
-            address_id: addressId,
-            username: userName,
-            store_id: storeId
+        const manager_staff_id = req.body.manager_staff_id;
+        const address_id = req.body.address_id;
+        const allCategories = await knex.knexObj('store').insert({
+            manager_staff_id: manager_staff_id,
+            address_id: address_id
         });
         res.status(201).send('insert succeed')
 
@@ -82,7 +71,7 @@ router.post('/', async function (req, res, next) {
 router.delete('/:id', async function (req, res, next) {
     try {
         const id = req.params.id;
-        const allCategories = await knex.knexObj('staff').where({ staff_id: id }).del();
+        const allCategories = await knex.knexObj('store').where({ store_id: id }).del();
         res.status(205).send('delete succeed')
 
     } catch (err) {

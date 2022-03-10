@@ -20,6 +20,7 @@ const inventoryRouter = require('./routes/inventory');
 const languageRouter = require('./routes/language');
 const paymentRouter = require('./routes/payment');
 const rentalRouter = require('./routes/rental');
+const staffRouter = require('./routes/staff');
 const app = express();
 
 // view engine setup
@@ -48,6 +49,7 @@ app.use('/inventory', inventoryRouter);
 app.use('/language', languageRouter);
 app.use('./payment', paymentRouter);
 app.use("./rental", rentalRouter);
+app.use("./staff", staffRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
