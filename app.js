@@ -9,6 +9,7 @@ const usersRouter = require('./routes/users');
 const categoryRouter = require('./routes/category');
 const actorRouter = require('./routes/actor');
 const addressRouter = require('./routes/address');
+const cityRouter = require('./routes/city')
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use('/users', usersRouter);
 app.use('/category', categoryRouter);
 app.use('/actor', actorRouter);
 app.use('/address', addressRouter);
+app.use('/city', cityRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
