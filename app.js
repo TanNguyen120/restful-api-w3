@@ -16,7 +16,9 @@ const filmRouter = require('./routes/film');
 const filmActorRouter = require('./routes/filmActor');
 const filmCategoryRouter = require('./routes/fimCategory');
 const filmTextRouter = require('./routes/filmText');
-
+const inventoryRouter = require('./routes/inventory');
+const languageRouter = require('./routes/language');
+const paymentRouter = require('./routes/payment')
 const app = express();
 
 // view engine setup
@@ -41,6 +43,9 @@ app.use('/film', filmRouter);
 app.use('/filmActor', filmActorRouter);
 app.use('/filmCategory', filmCategoryRouter);
 app.use('/filmText', filmTextRouter);
+app.use('/inventory', inventoryRouter);
+app.use('/language', languageRouter);
+app.use('./payment', paymentRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
