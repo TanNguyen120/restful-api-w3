@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const knex = require("../model/knex");
+
 /* GET home page. */
 router.get('/', async (req, res, next) => {
     try {

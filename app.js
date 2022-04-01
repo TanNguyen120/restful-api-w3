@@ -28,10 +28,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors({
-  origin: 'https://localhost:5500',
-  method: 'GET, PUT, POST, DELETE '
-}));
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -52,9 +49,10 @@ app.use('/filmCategory', filmCategoryRouter);
 app.use('/filmText', filmTextRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/language', languageRouter);
-app.use('./payment', paymentRouter);
-app.use("./rental", rentalRouter);
-app.use("./staff", staffRouter);
+app.use('/payment', paymentRouter);
+app.use("/rental", rentalRouter);
+app.use("/staff", staffRouter);
+app.use("/user", usersRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

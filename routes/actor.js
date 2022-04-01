@@ -1,7 +1,10 @@
+const Ajv = require("ajv");
 const express = require('express');
 const router = express.Router();
 const knex = require("../model/knex");
 
+
+const ajv = new Ajv() // options can be passed, e.g. {allErrors: true}
 /* GET home page. */
 router.get('/', async (req, res, next) => {
     try {
