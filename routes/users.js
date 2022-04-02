@@ -5,7 +5,7 @@ const knex = require("../model/knex");
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
   try {
-    const users = await knex("users").select("*");
+    const users = await knex.knexObj("user").select("*");
     res.status(200).json(users);
 
   } catch (error) {

@@ -8,15 +8,16 @@ router.get('/', async function (req, res, next) {
 });
 
 router.post('/', async function (req, res, next) {
+    // using bcrypt to hash the password
     const encryptPassword = bcrypt.hashSync(req.body.password, 13);
     try {
-        const result = await knex("users").insert(req.body.username, encryptPassword);
-        res.status(201).send('create succeed' + result);
+        const result = await knex.knexObj("user").insert({ username: req.body.username, password: encryptPassword });
+        res.status(201).send('create succeed, table have ' + result + '2 rows');
 
     } catch (error) {
         res.status(500).send('some thing went wrong');
-        console.error(err);
-        throw err;
+        console.error(error);
+        throw error;
     }
 });
 module.exports = router;
