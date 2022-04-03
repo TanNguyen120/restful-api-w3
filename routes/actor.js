@@ -2,11 +2,13 @@ const Ajv = require("ajv");
 const express = require('express');
 const router = express.Router();
 const knex = require("../model/knex");
+const auth = require("../auth/compareToken");
+
 
 
 const ajv = new Ajv() // options can be passed, e.g. {allErrors: true}
 /* GET home page. */
-router.get('/', async (req, res, next) => {
+router.get('/', auth.compareToken, async (req, res, next) => {
     try {
         const actors = await knex.knexObj('actor')
         res.status(200).json(actors)
