@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const knex = require("../model/knex");
+const auth = require("../auth/compareToken");
 
 /* GET home page. */
-router.get('/', async (req, res, next) => {
+router.get('/', auth.compareToken, async (req, res, next) => {
     try {
         const actors = await knex.knexObj('film')
         res.status(200).json(actors)

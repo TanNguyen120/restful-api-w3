@@ -14,7 +14,7 @@ router.post('/', async function (req, res, next) {
         const savePassWord = await knex.knexObj("user").where("username", req.body.username).select("password");
         const result = bcrypt.compareSync(req.body.password, savePassWord[0].password);
         if (result) {
-            const token = jwt.sign({ username: req.body.username }, 'mySecretKey', { expiresIn: '3m' });
+            const token = jwt.sign({ username: req.body.username }, 'mySecretKey', { expiresIn: '1h' });
             res.status(200).json({ token: token });
         } else {
             res.status(401).send('wrong password');

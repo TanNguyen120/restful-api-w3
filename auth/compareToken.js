@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 
-module.exports.compareToken = (req, res, next) => {
+module.exports.compareToken = async (req, res, next) => {
     const token = req.headers['authorization'];
     if (token) {
-        jwt.verify(token, 'mySecretKey', (err, decoded) => {
+        await jwt.verify(token, 'mySecretKey', (err, decoded) => {
             if (err) {
                 res.status(401).json({ message: "token is not valid" });
             } else {
@@ -13,7 +13,7 @@ module.exports.compareToken = (req, res, next) => {
             }
         });
     } else {
-        res.status(401).json({ message: "token is not valid" });
+        res.status(401).json({ message: "not have access token" });
     }
 }
 
