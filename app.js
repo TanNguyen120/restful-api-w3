@@ -41,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/category', categoryRouter);
+app.use('/token', refreshRouter);
 app.use('/actor', actorRouter);
 app.use('/address', addressRouter);
 app.use('/city', cityRouter);
@@ -58,7 +59,6 @@ app.use("/staff", staffRouter);
 app.use("/user", usersRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
-app.use("/refreshToken", refreshRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

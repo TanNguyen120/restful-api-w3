@@ -11,8 +11,8 @@ router.post('/', async function (req, res, next) {
     // using bcrypt to hash the password
     const encryptPassword = bcrypt.hashSync(req.body.password, 13);
     try {
-        const result = await knex.knexObj("user").insert({ username: req.body.username, password: encryptPassword });
-        res.status(201).send('create succeed, table have ' + result + '2 rows');
+        const result = await knex.knexObj("user").insert({ username: req.body.username, password: encryptPassword, refreshToken: 'aa' });
+        res.status(201).send('create succeed, table have ' + result + ' rows');
 
     } catch (error) {
         res.status(500).send('some thing went wrong');
