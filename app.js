@@ -24,6 +24,7 @@ const rentalRouter = require('./routes/rental');
 const staffRouter = require('./routes/staff');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/signup');
+const refreshRouter = require('./routes/refreshToken');
 const app = express();
 
 // view engine setup
@@ -57,6 +58,7 @@ app.use("/staff", staffRouter);
 app.use("/user", usersRouter);
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
+app.use("/refreshToken", refreshRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

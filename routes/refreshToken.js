@@ -2,22 +2,34 @@ const express = require('express');
 const router = express.Router();
 const knex = require("../model/knex");
 const bcrypt = require('bcrypt');
+const auth = require('../middleware/auth');
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-    res.send('respond with a resource');
-});
-
-router.post('/', async function (req, res, next) {
-    // using bcrypt to hash the password
-    const encryptPassword = bcrypt.hashSync(req.body.password, 13);
     try {
-        const result = await knex.knexObj("user").insert({ username: req.body.username, password: encryptPassword });
-        res.status(201).send('create succeed, table have ' + result + '2 rows');
-
-    } catch (error) {
-        res.status(500).send('some thing went wrong');
-        console.error(error);
-        throw error;
-    }
+        const token = req.headers['authorization'];
+        if (token) {
+            const opt = {
+                ignoreExpration: true,
+            }
+            await jwt.verify(token, 'mySecretKey', opt, (err, decoded) => {
+                if (err) {
+                    res.status(401).json({ message: "token is not valid" });
+                } else {
+                    const userId = decoded.userId;
+                    const userName = decoded.username;
+                    const refreshToken = decoded.refreshToken;
+                    const savedReFreshToken = await knex.knexObj("user").where("id", userId).select("username");
+                    if (refreshToken === savedReFreshToken[0]) {
+                        const accessToken = jwt.sign({ username: userName, userId: userId }, 'mySecretKey', { expiresIn: '1h' });
+                        res.status(200).json({ message: "refreshed", accessToken: accessToken, refreshToken: refreshToken });
+                    }
+                }
+            });
+        } else {
+            res.status(401).json({ message: "not have access token" });
+        }
+    } catch (err) {
+        res.send('respond with a resource');
+    };
 });
 module.exports = router;
